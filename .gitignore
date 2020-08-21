@@ -1,0 +1,8 @@
+/.vscode
+/node_modules
+/pnpm-lock.yaml
+/decorators.js
+/decorators.min.js
+/decorators.min.js.map
+/.types
+/js
