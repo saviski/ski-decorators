@@ -3,7 +3,7 @@ import { decorator } from './decorator.js'
 
 type NotStringAttr = 'only string type is allowed for attributes'
 
-export const attr = decorator<string, NotStringAttr>(
+export const attr = decorator<string | undefined, NotStringAttr>(
   ({ prototype, propertyKey, descriptor }) => {
     const elementClass: ElementWithAttributes = <any>prototype.constructor
     if (!elementClass.defineAttribute) inject(prototype, attributes({}))
