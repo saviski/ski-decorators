@@ -1,4 +1,4 @@
-import { decorator } from './decorator'
+import { decorator } from './decorator.js'
 
 export function define(name: string) {
   return decorator<CustomElementConstructor>(({ constructor }) => {

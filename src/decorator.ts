@@ -1,4 +1,4 @@
-type Constructor<T = any> = new (...args: any[]) => T
+export type Constructor<T = any> = new (...args: any[]) => T
 
 export interface DecoratorParams<T = unknown> {
   constructor: T extends Constructor ? T : never

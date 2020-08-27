@@ -1,4 +1,4 @@
-import { inject, cssProperties, CSSObservers } from '@ski/mixins'
+import { inject, cssProperties, CSSObservers } from '@ski/mixins/mixins.js'
 import { decorator } from './decorator.js'
 
 function cssPropertyDecorator({

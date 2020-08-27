@@ -2,15 +2,15 @@
   "name": "@ski/decorators",
   "version": "0.1.0",
   "description": "Custom elements typescript decorators based on @ski/mixins",
-  "main": "decorators.min.js",
+  "type": "module",
+  "main": "decorators.js",
   "module": "decorators.js",
   "types": "src/index.ts",
   "scripts": {
     "build": "run-s clean build:*",
     "watch": "run-p \"build:* -- --watch\"",
     "clean": "rimraf js .types",
-    "build:bundle": "rollup -c",
-    "build:typescript": "ttsc"
+    "build:bundle": "rollup -c"
   },
   "repository": {
     "type": "git",
