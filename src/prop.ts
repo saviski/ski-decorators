@@ -1,14 +1,22 @@
-import { decorator } from './decorator.js'
+import { decorator, MethodDecorator } from './decorator.js'
 
-export const prop = decorator<(value: any) => void>(({ propertyKey, descriptor }) => {
-  return <PropertyDescriptor>{
-    get() {
-      return this['#' + propertyKey.toString()]
-    },
+/**
+ * creates a getter and a setter for a setter method that stores a value
+ */
+export const prop = decorator(
+  class extends MethodDecorator<any, string, (value: any) => void> {
+    decorateMethod({ descriptor } = this.params): PropertyDescriptor {
+      let store = new WeakMap<any, any>()
+      return {
+        get() {
+          return store.get(this)
+        },
 
-    set(value) {
-      this['#' + propertyKey.toString()] = value
-      descriptor.set?.call(this, value)
-    },
+        set(value) {
+          store.set(this, value)
+          descriptor.set?.call(this, value)
+        },
+      }
+    }
   }
-})
+)

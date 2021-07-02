@@ -1,14 +1,13 @@
 import { ClassDecorator, decorator } from './decorator.js'
-import { baseURI } from '@ski/mixins/mixins.js'
 
-export const baseuri = decorator(
+export const tag = decorator(
   class extends ClassDecorator<HTMLElement> {
-    constructor(private uri: string) {
+    constructor(private tag: `${string}-${string}`) {
       super()
     }
 
     decorateClass({ constructor } = this.params) {
-      return baseURI(this.uri)(constructor)
+      customElements.define(this.tag, constructor)
     }
   }
 )

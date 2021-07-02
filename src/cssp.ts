@@ -1,26 +1,19 @@
-import { inject, cssProperties, CSSObservers } from '@ski/mixins/mixins.js'
-import { decorator } from './decorator.js'
+import { inject, mixinCssProperties } from '@ski/mixins/mixins.js'
+import { decorator, PropertyDecorator } from './decorator.js'
 
-function cssPropertyDecorator({
-  prototype = <object>{},
-  propertyKey = <string | symbol>'',
-  descriptor = <TypedPropertyDescriptor<string>>{},
-  syntax = '*',
-}) {
-  const elementClass: CSSObservers = <any>prototype.constructor
-  if (!elementClass.defineCSSProperty) inject(prototype, cssProperties({}))
-  return elementClass.defineCSSProperty(<string>propertyKey, descriptor, syntax)
-}
+export const cssproperty = decorator(
+  class extends PropertyDecorator<HTMLElement, string, string | undefined> {
+    constructor(private syntax: string = '*') {
+      super()
+    }
 
-type NotStringMessage = 'string type required'
+    decorateProperty({ constructor, property, descriptor } = this.params) {
+      inject(constructor, mixinCssProperties).defineCSSProperty(property, descriptor, this.syntax)
+    }
+  }
+)
 
-export const cssp = decorator<string, NotStringMessage>(cssPropertyDecorator)
-
-export function cssproperty(syntax: string) {
-  return decorator<string, NotStringMessage>(params =>
-    cssPropertyDecorator({
-      ...params,
-      syntax,
-    })
-  )
-}
+/**
+ * string properties only
+ */
+export const cssp = cssproperty('*')

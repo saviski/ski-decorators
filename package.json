@@ -5,7 +5,7 @@
   "type": "module",
   "main": "decorators.js",
   "module": "decorators.js",
-  "types": "src/index.ts",
+  "types": "decorators.d.ts",
   "scripts": {
     "build": "run-s clean build:*",
     "watch": "run-p \"build:* -- --watch\"",
@@ -33,17 +33,17 @@
   },
   "homepage": "https://github.com/saviski/ski-decorators#readme",
   "dependencies": {
-    "@ski/mixins": "next"
+    "@ski/mixins": "workspace:^0.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^9.0.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
-    "rollup": "^2.26.4",
-    "rollup-plugin-terser": "^7.0.0",
-    "rollup-plugin-typescript2": "^0.27.2",
-    "tslib": "^2.0.1",
-    "typescript": "^4.0.2"
+    "rollup": "^2.52.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.27.3",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.4"
   },
   "files": [
     ".types",
@@ -54,7 +54,7 @@
     "decorators.min.js.map"
   ],
   "prettier": {
-    "printWidth": 90,
+    "printWidth": 120,
     "semi": false,
     "tabWidth": 2,
     "proseWrap": "never",

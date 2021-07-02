@@ -1,13 +1,22 @@
-import { decorator } from './decorator.js'
+import { decorator, PropertyDecorator } from './decorator.js'
 
-type NotElement = 'HTML Element type required'
+/**
+ * HTML Element type required
+ */
 
-export function element(query: string) {
-  return decorator<Element | undefined, NotElement>(() => {
-    return {
-      get(this: Element) {
-        return this.shadowRoot?.querySelector(query)
-      },
+export const element = decorator(
+  class extends PropertyDecorator<HTMLElement, string, Element | undefined> {
+    constructor(private query: string) {
+      super()
     }
-  })
-}
+
+    decorateProperty() {
+      let query = this.query
+      return {
+        get(this: Element) {
+          return this.shadowRoot?.querySelector(query) || undefined
+        },
+      }
+    }
+  }
+)
