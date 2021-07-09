@@ -1,17 +1,17 @@
 import { inject, mixinCssProperties } from '@ski/mixins/mixins.js'
-import { decorator, PropertyDecorator } from './decorator.js'
+import { PropertyDecorator } from './decorators/property-decorator.js'
 
-export const cssproperty = decorator(
-  class extends PropertyDecorator<HTMLElement, string, string | undefined> {
-    constructor(private syntax: string = '*') {
-      super()
-    }
-
-    decorateProperty({ constructor, property, descriptor } = this.params) {
-      inject(constructor, mixinCssProperties).defineCSSProperty(property, descriptor, this.syntax)
-    }
+class CssPropertyDecorator extends PropertyDecorator<HTMLElement, string, string | undefined> {
+  constructor(private syntax: string) {
+    super()
   }
-)
+
+  decorateProperty({ constructor, property, descriptor } = this.params) {
+    inject(constructor, mixinCssProperties).defineCSSProperty(property, descriptor, this.syntax)
+  }
+}
+
+export const cssproperty = CssPropertyDecorator.decorator()
 
 /**
  * string properties only
