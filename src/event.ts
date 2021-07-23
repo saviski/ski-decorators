@@ -16,15 +16,18 @@ type MethodIsListener<T, K extends keyof T> = T[K] extends (event: infer E) => a
     : AnyEventListener
   : AnyEventListener
 
-abstract class EventListenerDecorator extends MethodDecorator<HTMLElement, any, any> {
-  override decorator!: <T extends HTMLElement, K extends keyof T>(
+abstract class EventListenerDecorator extends MethodDecorator<HTMLElement, any, any> {}
+
+interface EventListenerDecorator {
+  decorator<T extends HTMLElement, K extends keyof T>(
     prototype: T,
     property: K,
     descriptor: TypedPropertyDescriptor<MethodIsListener<T, K>>
-  ) => void
+  ): void
 }
+
 class PreventDefaultDecorator extends EventListenerDecorator {
-  decorateMethod({ descriptor } = this.paramtypes) {
+  decorateMethod({ descriptor } = this.params) {
     return {
       value(event: Event) {
         event.preventDefault()
@@ -35,7 +38,7 @@ class PreventDefaultDecorator extends EventListenerDecorator {
 }
 
 class StopPropagationDecorator extends EventListenerDecorator {
-  decorateMethod({ descriptor } = this.paramtypes) {
+  decorateMethod({ descriptor } = this.params) {
     return {
       value(event: Event) {
         event.stopPropagation()
@@ -50,7 +53,7 @@ class MatchesDecorator extends EventListenerDecorator {
     super()
   }
 
-  decorateMethod({ descriptor } = this.paramtypes) {
+  decorateMethod({ descriptor } = this.params) {
     let selectors = this.selectors
     return {
       value(this: Element, event: Event) {

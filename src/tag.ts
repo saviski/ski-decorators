@@ -1,11 +1,11 @@
-import { ClassDecorator } from './decorators/class-decorator.js'
+import { LazyClassDecorator } from './decorators/class-decorator.js'
 
-class TagDecorator extends ClassDecorator<HTMLElement> {
+class TagDecorator extends LazyClassDecorator<HTMLElement> {
   constructor(private tag: `${string}-${string}`) {
     super()
   }
 
-  decorateClass({ constructor } = this.params) {
+  decorateFinalizedClass({ constructor } = this.params) {
     customElements.define(this.tag, constructor)
   }
 }

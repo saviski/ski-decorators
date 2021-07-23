@@ -20,7 +20,7 @@ export abstract class MethodDecorator<T, K extends string | symbol, V> extends B
       })
   }
 
-  paramtypes!: MethodParams<T, K, V>
+  params!: MethodParams<T, K, V>
 
   abstract decorateMethod(params: MethodParams<T, K, V>): TypedPropertyDescriptor<V> | void
 }

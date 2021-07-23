@@ -5,12 +5,13 @@
   "type": "module",
   "main": "decorators.js",
   "module": "decorators.js",
-  "types": "decorators.d.ts",
+  "types": "decorators.ts",
   "scripts": {
     "build": "run-s clean build:*",
     "watch": "run-p \"build:* -- --watch\"",
     "clean": "rimraf js .types",
-    "build:bundle": "rollup -c"
+    "build:bundle": "rollup -c",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
