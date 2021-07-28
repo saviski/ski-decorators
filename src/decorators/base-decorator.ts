@@ -3,11 +3,11 @@ interface Decorator {
 }
 
 export abstract class BaseDecorator implements Decorator {
+  //
   abstract decorator(target: any, property?: string | symbol, extra?: PropertyDescriptor | number)
 
   typed<T, K, V>() {
-    return (prototype: T, property: K, extra: TypedPropertyDescriptor<V>) =>
-      this.decorator(prototype, <any>property, extra)
+    return this.decorator.bind(this) as unknown as (prototype: T, property: K, extra: TypedPropertyDescriptor<V>) => any
   }
 
   bind() {

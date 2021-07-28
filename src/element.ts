@@ -1,4 +1,5 @@
 import { PropertyDecorator } from './decorators/property-decorator.js'
+import { mixinElements, inject } from '@ski/mixins/mixins.js'
 
 /**
  * HTML Element type required
@@ -9,13 +10,8 @@ class ElementDecorator extends PropertyDecorator<HTMLElement, string, Element | 
     super()
   }
 
-  decorateProperty() {
-    let query = this.query
-    return {
-      get(this: Element) {
-        return this.shadowRoot?.querySelector(query) || undefined
-      },
-    }
+  decorateProperty({ constructor, property } = this.params) {
+    inject(constructor, mixinElements).defineElement(property, this.query)
   }
 }
 
