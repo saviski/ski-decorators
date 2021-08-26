@@ -11,7 +11,10 @@
     "watch": "run-p \"build:* -- --watch\"",
     "clean": "rimraf js .types",
     "build:bundle": "rollup -c",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "test": "mocha",
+    "test:watch": "npm test -- --watch",
+    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
   },
   "repository": {
     "type": "git",
@@ -33,9 +36,6 @@
     "url": "https://github.com/saviski/ski-decorators/issues"
   },
   "homepage": "https://github.com/saviski/ski-decorators#readme",
-  "dependencies": {
-    "@ski/mixins": "workspace:^0.1.0"
-  },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^9.0.0",
     "npm-run-all": "^4.1.5",
@@ -44,7 +44,14 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.27.3",
     "tslib": "^2.3.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "@ski/mixins": "workspace:^0.1.0",
+    "@testdeck/mocha": "^0.1.2",
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "nyc": "^15.1.0"
   },
   "files": [
     ".types",
@@ -62,5 +69,10 @@
     "arrowParens": "avoid",
     "endOfLine": "auto",
     "singleQuote": true
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "extension": "ts",
+    "spec": "test/**/*.test.ts"
   }
 }
